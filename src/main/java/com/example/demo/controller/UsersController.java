@@ -1,12 +1,11 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.UsersRequestDto;
 import com.example.demo.dto.UsersResponseDto;
+import com.example.demo.model.Users;
 import com.example.demo.service.UsersService;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,5 +20,16 @@ public class UsersController{
     public List <UsersResponseDto> getAllUsers () {
         return usersService.getAll();
     }
+    @GetMapping(value = "/find-users/{id}")
+    public Users usersFind (@PathVariable int id) { return usersService.getUserById(id);}
+
+    @DeleteMapping(value = "/delete-users/{id}")
+    public Users usersDelete (@PathVariable int id) {return  usersService.deleteUsersById(id);}
+
+
+    @PostMapping(value ="/add-users" )
+    public void addUser(@RequestBody UsersRequestDto usersRequestDto) {usersService.addNewUser(usersRequestDto);}
+
+
 
 }
