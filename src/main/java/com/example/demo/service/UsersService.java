@@ -4,11 +4,10 @@ import com.example.demo.dto.UsersRequestDto;
 import com.example.demo.dto.UsersResponseDto;
 import com.example.demo.model.Users;
 import com.example.demo.repository.UsersRepository;
-import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
-import org.apache.coyote.Request;
-import org.springframework.boot.autoconfigure.info.ProjectInfoProperties;
-import org.springframework.stereotype.Repository;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -52,6 +51,19 @@ public class UsersService {
                 .age(usersRequestDto.getAge())
                 .build();
         usersRepository.save(insertUser);
+    }
+
+    public List<UsersResponseDto> testGet() {
+        return usersRepository.getAll().stream().map(
+                users -> UsersResponseDto.builder()
+                        .firstName(users.getFirstName())
+                        .lastName(users.getLastName())
+                        .patronymicName(users.getPatronymicName())
+                        .login(users.getLogin())
+                        .password(users.getPassword())
+                        .age(users.getAge())
+                        .build()
+        ).collect(Collectors.toList());
     }
 
 }

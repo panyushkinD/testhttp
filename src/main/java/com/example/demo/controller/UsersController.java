@@ -31,5 +31,8 @@ public class UsersController{
     public void addUser(@RequestBody UsersRequestDto usersRequestDto) {usersService.addNewUser(usersRequestDto);}
 
 
-
+    @GetMapping(value = "/all")
+    public List <UsersResponseDto> getTest () {
+        return usersService.testGet();
+    }
 }
