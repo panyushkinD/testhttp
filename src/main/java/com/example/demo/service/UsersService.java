@@ -2,7 +2,9 @@ package com.example.demo.service;
 
 import com.example.demo.dto.UsersRequestDto;
 import com.example.demo.dto.UsersResponseDto;
+import com.example.demo.model.GenderName;
 import com.example.demo.model.Users;
+import com.example.demo.repository.GenderRepository;
 import com.example.demo.repository.UsersRepository;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
@@ -18,6 +20,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class UsersService {
     private final UsersRepository usersRepository;
+    private final GenderRepository genderRepository;
 
     public List<UsersResponseDto> getAll() {
         return usersRepository.findAll().stream().map(
@@ -44,6 +47,7 @@ public class UsersService {
 
 
     public void addNewUser(UsersRequestDto usersRequestDto) {
+        GenderName findGenderById = genderRepository.findById(usersRequestDto.getGender()).get();
         Users insertUser = Users.builder()
                 .firstName(usersRequestDto.getFirstName())
                 .lastName(usersRequestDto.getLastName())
@@ -51,6 +55,7 @@ public class UsersService {
                 .login(usersRequestDto.getLogin())
                 .password(usersRequestDto.getPassword())
                 .age(usersRequestDto.getAge())
+                .genderName(findGenderById)
                 .build();
         usersRepository.save(insertUser);
     }
