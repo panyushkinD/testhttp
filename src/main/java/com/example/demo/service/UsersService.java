@@ -70,4 +70,16 @@ public class UsersService {
 
         return existingUser;
     }
+    public List<UsersResponseDto> testGet() {
+        return usersRepository.getAll().stream().map(
+                users -> UsersResponseDto.builder()
+                        .firstName(users.getFirstName())
+                        .lastName(users.getLastName())
+                        .patronymicName(users.getPatronymicName())
+                        .login(users.getLogin())
+                        .password(users.getPassword())
+                        .age(users.getAge())
+                        .build()
+        ).collect(Collectors.toList());
+    }
 }

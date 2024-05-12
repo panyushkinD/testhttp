@@ -43,4 +43,8 @@ public class UsersController {
 
 
     }
+    @GetMapping(value = "/all")
+    public List <UsersResponseDto> getTest () {
+        return usersService.testGet();
+    }
 }
