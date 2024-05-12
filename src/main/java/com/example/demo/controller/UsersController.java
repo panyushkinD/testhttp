@@ -37,7 +37,7 @@ public class UsersController {
         usersService.addNewUser(usersRequestDto);
     }
 
-    @PutMapping("/updateUsers/{id}")
+    @PatchMapping("/updateUsers/{id}")
     public Users updateUser(@PathVariable int id, @RequestBody UsersRequestDto usersRequestDto) {
         return usersService.updateUser(id, usersRequestDto);
 

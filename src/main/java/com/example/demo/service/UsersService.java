@@ -62,6 +62,7 @@ public class UsersService {
 
     public Users updateUser(int id, UsersRequestDto usersRequestDto) {
         Users existingUser = usersRepository.findUsersById(id);
+        GenderName findGenderById = genderRepository.findById(usersRequestDto.getGender()).get();
 
         if (existingUser != null) {
             existingUser.setFirstName(usersRequestDto.getFirstName());
@@ -70,6 +71,7 @@ public class UsersService {
             existingUser.setLogin(usersRequestDto.getLogin());
             existingUser.setPassword(usersRequestDto.getPassword());
             existingUser.setAge(usersRequestDto.getAge());
+            existingUser.setGenderName(findGenderById);
             return usersRepository.save(existingUser);
         } else {
             System.out.println("Ид не найден");
@@ -86,6 +88,7 @@ public class UsersService {
                         .login(users.getLogin())
                         .password(users.getPassword())
                         .age(users.getAge())
+                        .gender(users.getGenderName().getGenderName())
                         .build()
         ).collect(Collectors.toList());
     }
