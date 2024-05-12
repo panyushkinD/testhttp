@@ -35,14 +35,13 @@ public class UsersService {
     public Users getUserById(int id) {
         return usersRepository.findUsersById(id);
     }
-    public Users deleteUsersById (int id) {
+
+    public Users deleteUsersById(int id) {
         return usersRepository.deleteById(id);
     }
 
 
-
-
-    public void addNewUser(UsersRequestDto usersRequestDto)  {
+    public void addNewUser(UsersRequestDto usersRequestDto) {
         Users insertUser = Users.builder()
                 .firstName(usersRequestDto.getFirstName())
                 .lastName(usersRequestDto.getLastName())
@@ -54,4 +53,21 @@ public class UsersService {
         usersRepository.save(insertUser);
     }
 
+    public Users updateUser(int id, UsersRequestDto usersRequestDto) {
+        Users existingUser = usersRepository.findUsersById(id);
+
+        if (existingUser != null) {
+            existingUser.setFirstName(usersRequestDto.getFirstName());
+            existingUser.setLastName(usersRequestDto.getLastName());
+            existingUser.setPatronymicName(usersRequestDto.getPatronymicName());
+            existingUser.setLogin(usersRequestDto.getLogin());
+            existingUser.setPassword(usersRequestDto.getPassword());
+            existingUser.setAge(usersRequestDto.getAge());
+            return usersRepository.save(existingUser);
+        } else {
+            System.out.println("Ид не найден");
+        }
+
+        return existingUser;
+    }
 }

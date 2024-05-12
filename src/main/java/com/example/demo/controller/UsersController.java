@@ -13,23 +13,34 @@ import java.util.List;
 @CrossOrigin(origins = "*", maxAge = 3600)
 @AllArgsConstructor
 @RequestMapping("/api/v1/main")
-public class UsersController{
+public class UsersController {
     private final UsersService usersService;
 
     @GetMapping(value = "/all-users")
-    public List <UsersResponseDto> getAllUsers () {
+    public List<UsersResponseDto> getAllUsers() {
         return usersService.getAll();
     }
+
     @GetMapping(value = "/find-users/{id}")
-    public Users usersFind (@PathVariable int id) { return usersService.getUserById(id);}
+    public Users usersFind(@PathVariable int id) {
+        return usersService.getUserById(id);
+    }
 
     @DeleteMapping(value = "/delete-users/{id}")
-    public Users usersDelete (@PathVariable int id) {return  usersService.deleteUsersById(id);}
+    public Users usersDelete(@PathVariable int id) {
+        return usersService.deleteUsersById(id);
+    }
 
 
-    @PostMapping(value ="/add-users" )
-    public void addUser(@RequestBody UsersRequestDto usersRequestDto) {usersService.addNewUser(usersRequestDto);}
+    @PostMapping(value = "/add-users")
+    public void addUser(@RequestBody UsersRequestDto usersRequestDto) {
+        usersService.addNewUser(usersRequestDto);
+    }
+
+    @PutMapping("/updateUsers/{id}")
+    public Users updateUser(@PathVariable int id, @RequestBody UsersRequestDto usersRequestDto) {
+        return usersService.updateUser(id, usersRequestDto);
 
 
-
+    }
 }
