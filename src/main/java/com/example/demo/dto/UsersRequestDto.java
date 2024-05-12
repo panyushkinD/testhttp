@@ -17,6 +17,8 @@ public class UsersRequestDto {
     private String password;
     private int age;
 
+    private String gender;
+
 
 
 }

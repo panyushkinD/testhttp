@@ -28,7 +28,9 @@ public class UsersService {
                         .login(users.getLogin())
                         .password(users.getPassword())
                         .age(users.getAge())
+                        .gender(users.getGenderName().getGenderName())
                         .build()
+
         ).collect(Collectors.toList());
     }
 
